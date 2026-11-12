@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartEvents Studio — 3D Event Production Planner</title>
+
+<!-- Open Graph / Discord Embed -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="SmartEvents Studio — 3D Event Production Planner" />
+<meta property="og:description" content="Design professional lighting, audio & stage layouts in a real-time 3D venue. Plan events visually with moving heads, line arrays, lasers, and acoustic heatmaps." />
+<meta property="og:image" content="https://i.ibb.co/35Ys0TSt/image.png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+<meta property="og:url" content="https://eventsmart.pages.dev/" />
+<meta property="og:site_name" content="SmartEvents Studio" />
+
+<!-- Twitter Card (also used by Discord as fallback) -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="SmartEvents Studio — 3D Event Production Planner" />
+<meta name="twitter:description" content="Design professional lighting, audio & stage layouts in a real-time 3D venue. Plan events visually with moving heads, line arrays, lasers, and acoustic heatmaps." />
+<meta name="twitter:image" content="https://i.ibb.co/35Ys0TSt/image.png" />
+<meta name="twitter:site" content="@smartevents" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#090e13;--top:#0d151c;--panel:#101a22;--panel2:#14232c;--panel3:#192c36;--line:#243844;--line2:#304956;--text:#eaf3f6;--muted:#91a5af;--mint:#62e7bd;--cyan:#72cfff;--amber:#ffc879;--red:#ff858c;--purple:#bba0ff;--shadow:0 18px 50px rgba(0,0,0,.38)}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{overflow:hidden;background:var(--bg);color:var(--text);font:13px/1.45 Manrope,system-ui,sans-serif}button,input,select{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--mint);outline-offset:2px}.app{height:100%;display:grid;grid-template-rows:62px 48px minmax(0,1fr)}
+.topbar{display:flex;align-items:center;gap:18px;padding:0 18px;background:linear-gradient(180deg,#111c24,#0d151c);border-bottom:1px solid var(--line);z-index:5}.brand{display:flex;align-items:center;gap:10px;min-width:220px;font-weight:800;letter-spacing:.06em}.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--mint),var(--cyan));display:grid;place-items:center;color:#07140f;font-size:17px;box-shadow:0 0 22px #62e7bd30}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:.16em;font-weight:700;margin-top:-2px}.project-name{display:flex;align-items:center;gap:9px;border-left:1px solid var(--line);padding-left:18px}.project-name input{width:225px;border:0;outline:0;color:var(--text);background:transparent;font-weight:700;font-size:13px}.project-name span{font:10px 'DM Mono',monospace;color:#6d8794}.top-actions{margin-left:auto;display:flex;align-items:center;gap:7px}.btn{border:1px solid var(--line2);background:#172630;border-radius:7px;padding:8px 11px;font-size:11px;font-weight:800;letter-spacing:.01em;transition:.18s}.btn:hover{background:#203641;border-color:#557383;transform:translateY(-1px)}.btn.primary{background:var(--mint);border-color:var(--mint);color:#071710}.btn.primary:hover{background:#87f2d1;box-shadow:0 0 18px #62e7bd35}.btn.ghost{background:transparent}.btn.danger{color:var(--red)}.icon-btn{width:34px;height:34px;padding:0;display:grid;place-items:center;font-size:15px}
+.modebar{display:flex;align-items:center;gap:7px;padding:0 18px;background:#0b1319;border-bottom:1px solid var(--line)}.mode-label{font-size:9px;letter-spacing:.18em;font-weight:800;color:#78909c;margin-right:8px}.mode{height:31px;border:1px solid transparent;background:transparent;color:#9eb0b9;border-radius:6px;padding:0 13px;font-size:10px;font-weight:800;letter-spacing:.08em}.mode:hover{background:#172630;color:var(--text)}.mode.active{background:#16352e;border-color:#2e705e;color:var(--mint)}.mode.active.audio{background:#2a2140;border-color:#68539a;color:#c8b3ff}.mode.active.venue{background:#1c303e;border-color:#3d6277;color:var(--cyan)}.modebar .spacer{flex:1}.live-indicator{font:10px 'DM Mono',monospace;color:#7e969f;display:flex;align-items:center;gap:7px}.live-indicator:before{content:'';width:6px;height:6px;background:var(--mint);border-radius:50%;box-shadow:0 0 9px var(--mint)}
+.workspace{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:0}.sidebar{background:var(--panel);overflow:auto;min-height:0;scrollbar-width:thin;scrollbar-color:#344b56 transparent;border-right:1px solid var(--line);padding:15px 13px}.section{margin-bottom:21px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px}.eyebrow{font-size:9px;font-weight:800;color:#8299a4;letter-spacing:.17em;text-transform:uppercase}.section-head .count{font:10px 'DM Mono',monospace;color:#728b96}.search{height:34px;display:flex;align-items:center;gap:8px;padding:0 10px;border:1px solid var(--line);border-radius:7px;background:#0b141a;margin-bottom:9px;color:#728a95}.search input{background:transparent;border:0;outline:0;color:var(--text);width:100%;font-size:11px}.category-tabs{display:flex;gap:5px;margin-bottom:9px}.cat-tab{flex:1;padding:6px 5px;border:1px solid var(--line);background:#12212a;color:#8298a2;border-radius:6px;font-size:9px;font-weight:800}.cat-tab.active{color:var(--mint);border-color:#36715f;background:#15332c}.equipment-list{display:grid;grid-template-columns:1fr 1fr;gap:7px}.equipment-card{min-height:75px;background:linear-gradient(145deg,#172730,#122029);border:1px solid var(--line);border-radius:8px;padding:9px;text-align:left;position:relative;overflow:hidden;transition:.16s}.equipment-card:hover{border-color:#5ba88f;background:#1b3339;transform:translateY(-1px)}.equipment-card.selected-tool{border-color:var(--mint);box-shadow:inset 0 0 0 1px #62e7bd30;background:#17342e}.equipment-card .eq-icon{font-size:20px;display:block;margin-bottom:6px;filter:drop-shadow(0 0 9px currentColor)}.equipment-card strong{font-size:10px;display:block}.equipment-card small{display:block;color:#8299a4;font-size:9px;margin-top:2px}.equipment-card .addmark{position:absolute;right:8px;top:8px;color:#6e8994;font-size:15px}.side-note{font-size:10px;line-height:1.5;color:#8fa3ad;border:1px solid var(--line);background:#0e1920;border-radius:7px;padding:10px;margin-top:10px}.side-note b{color:#c9d8de}.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.preset{border:1px solid var(--line);border-radius:7px;background:#15242d;padding:9px;text-align:left}.preset.active{border-color:var(--cyan);background:#193241}.preset strong{font-size:10px;display:block}.preset small{font-size:9px;color:var(--muted)}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field{display:grid;gap:5px;margin-bottom:10px}.field label{font-size:10px;color:#a8bbc3;font-weight:700}.field input:not([type=checkbox]):not([type=range]),.field select{width:100%;height:32px;padding:0 9px;background:#0a141a;color:var(--text);border:1px solid var(--line);border-radius:6px;outline:0;font-size:11px}.field input:focus,.field select:focus{border-color:var(--mint)}.check-row{display:flex;align-items:center;gap:8px;font-size:10px;color:#b5c6cd;margin:9px 2px}.check-row input{accent-color:var(--mint)}.range-row{display:flex;align-items:center;gap:9px}.range-row input{width:100%;accent-color:var(--mint)}.range-row output{min-width:35px;text-align:right;color:var(--mint);font:10px 'DM Mono',monospace}.small-action{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:#172630;color:#bdcbd1;font-size:10px;font-weight:800}.small-action:hover{border-color:var(--mint);color:var(--mint)}
+.viewport{position:relative;min-width:0;min-height:0;background:#0b131a;overflow:hidden}#view{width:100%;height:100%;display:block;touch-action:none;outline:0}.viewport:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,11,15,.22),transparent 22%,transparent 78%,rgba(5,11,15,.35))}.hud{position:absolute;z-index:2;top:14px;left:14px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}.hud-pill{padding:7px 9px;background:#0b151dcc;border:1px solid #314752;border-radius:6px;color:#c3d1d7;font:9px 'DM Mono',monospace;backdrop-filter:blur(9px)}.hud-pill strong{color:var(--mint);font-weight:500}.view-controls{position:absolute;z-index:3;top:13px;right:13px;display:flex;gap:5px}.view-controls .btn{background:#0b151ddd;padding:7px 9px;font-size:9px}.view-controls .btn.active{border-color:var(--mint);color:var(--mint)}.view-legend{position:absolute;z-index:3;left:14px;top:62px;padding:8px 10px;background:#0b151dcc;border:1px solid #314752;border-radius:6px;backdrop-filter:blur(8px);display:none}.view-legend.show{display:block}.legend-title{font-size:9px;font-weight:800;letter-spacing:.12em;color:#b9cbd2;margin-bottom:6px}.legend-gradient{width:150px;height:8px;border-radius:20px;background:linear-gradient(90deg,#2444b9,#31b9c8,#55d78b,#e7d45d,#fa754b)}.legend-labels{display:flex;justify-content:space-between;color:#9eb0b9;font:8px 'DM Mono',monospace;margin-top:4px}.helpbar{position:absolute;z-index:3;bottom:13px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:end;gap:12px;pointer-events:none}.help-text{max-width:650px;border:1px solid #314752;background:#0b151dcc;backdrop-filter:blur(8px);border-radius:7px;padding:8px 10px;color:#afc0c7;font-size:9px}.help-text b{color:#eaf3f6}.selection-chip{margin-left:auto;background:#16352e;border:1px solid #36715f;border-radius:6px;padding:7px 9px;color:var(--mint);font:9px 'DM Mono',monospace;display:none}.selection-chip.show{display:block}.crosshair{position:absolute;z-index:1;left:50%;top:50%;width:16px;height:16px;opacity:.22;pointer-events:none}.crosshair:before,.crosshair:after{content:'';position:absolute;background:#91a9b3}.crosshair:before{width:1px;height:16px;left:7px}.crosshair:after{height:1px;width:16px;top:7px}
+.inspector-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.status-tag{font:9px 'DM Mono',monospace;color:var(--mint);border:1px solid #326452;background:#153027;border-radius:5px;padding:4px 6px}.empty-selection{text-align:center;padding:29px 15px;border:1px dashed #314752;border-radius:8px;background:#0d171e}.empty-selection .empty-icon{font-size:27px;color:#54707d;margin-bottom:8px}.empty-selection strong{display:block;font-size:11px}.empty-selection p{color:#859ba5;font-size:10px;line-height:1.6;margin:6px 0 0}.object-title{display:flex;align-items:center;gap:10px;padding:11px;background:#152630;border:1px solid var(--line);border-radius:8px;margin-bottom:13px}.object-symbol{width:35px;height:35px;border-radius:8px;background:#203b43;display:grid;place-items:center;font-size:18px}.object-title strong{font-size:12px;display:block}.object-title small{font:9px 'DM Mono',monospace;color:#8ea4ae}.inspector-subhead{font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:#839aa4;margin:15px 0 9px}.axis-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.axis-row .field{margin:0}.axis-row label{font:9px 'DM Mono',monospace}.axis-row input{width:100%;min-width:0}.properties-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.property{padding:9px;background:#15252e;border:1px solid var(--line);border-radius:7px}.property span{display:block;color:#8197a1;font-size:9px}.property strong{display:block;font:15px 'DM Mono',monospace;margin-top:3px}.inspector-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}.inspector-actions button{padding:8px 5px}.full{grid-column:1/-1}.divider{height:1px;background:var(--line);margin:15px 0}.technical-note{background:#1c211d;border:1px solid #4a4930;color:#bdb89a;border-radius:7px;padding:10px;font-size:9px;line-height:1.55}.technical-note b{color:#e2d79f}.summary-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #22343e;font-size:10px;color:#9db0b9}.summary-row strong{font:11px 'DM Mono',monospace;color:#e7f0f3}.summary-row:last-child{border:0}
+#contextMenu{position:fixed;z-index:50;min-width:190px;padding:6px;background:#101c24;border:1px solid #3c5662;border-radius:8px;box-shadow:var(--shadow);display:none}#contextMenu.show{display:block}.ctx-head{padding:7px 9px;color:#8ca3ad;font-size:9px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--line);margin-bottom:4px}.ctx-item{width:100%;display:flex;align-items:center;gap:8px;padding:8px 9px;border:0;background:transparent;text-align:left;font-size:10px;border-radius:5px}.ctx-item:hover{background:#20343e}.ctx-item.danger{color:var(--red)}.ctx-sep{height:1px;background:var(--line);margin:4px}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translate(-50%,10px);opacity:0;pointer-events:none;background:#d7fff0;color:#071a12;border-radius:7px;padding:9px 14px;font-size:11px;font-weight:800;box-shadow:var(--shadow);transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;z-index:80;background:#02070bc9;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}.modal-backdrop.show{display:flex}.modal{width:min(560px,92vw);background:#111e27;border:1px solid #3c5662;border-radius:12px;box-shadow:var(--shadow);padding:22px}.modal h2{margin:0 0 5px;font-size:18px}.modal p{margin:0 0 15px;color:#95aab3;font-size:11px}.modal textarea{width:100%;height:240px;background:#091218;color:#d5e2e7;border:1px solid var(--line);border-radius:7px;padding:12px;font:10px/1.6 'DM Mono',monospace;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}.hidden{display:none!important}
+@media(max-width:1100px){.workspace{grid-template-columns:230px minmax(0,1fr)}.brand{min-width:185px}.project-name input{width:175px}}@media(max-width:850px){body{overflow:auto}.app{min-height:100%;height:auto;grid-template-rows:auto auto auto}.topbar{flex-wrap:wrap;padding:10px}.brand{min-width:0}.project-name{border:0;padding:0}.top-actions{gap:4px}.top-actions .btn{padding:7px}.modebar{overflow:auto;min-height:48px}.workspace{grid-template-columns:1fr;grid-template-rows:430px auto}.viewport{grid-row:1}.sidebar{grid-row:2;border:0;border-top:1px solid var(--line)}.equipment-list{grid-template-columns:repeat(3,1fr)}.helpbar{bottom:9px}.help-text{max-width:75%}}@media(max-width:520px){.topbar{gap:8px}.brand small{display:none}.project-name input{width:130px}.top-actions .btn:nth-child(2){display:none}.workspace{grid-template-rows:380px auto}.equipment-list{grid-template-columns:1fr 1fr}.mode{padding:0 9px}.mode-label{display:none}.help-text{max-width:100%}.selection-chip{display:none!important}}
+
+/* =========================================
+   SMART EVENTS INTRO — faithful to the supplied HTML
+   ========================================= */
+#intro-overlay{
+  position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(circle at center,#0a1a24 0%,#000 100%);
+  color:#f4f8ff;isolation:isolate;transition:opacity 1s ease-out,visibility 1s ease-out
+}
+#intro-overlay.leaving{opacity:0;visibility:hidden;pointer-events:none}
+#intro-overlay:before{
+  content:"";position:absolute;inset:-50%;
+  background:conic-gradient(from 0deg,#10b981,#06b6d4,#f59e0b,#ef4444,#10b981);
+  animation:hueShift 10s linear infinite,spinBg 20s linear infinite;
+  opacity:.15;z-index:0;pointer-events:none
+}
+@keyframes hueShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+@keyframes spinBg{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.intro-content{
+  position:relative;z-index:10;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;width:100%;min-height:100%;
+  padding:24px 16px 38px;text-align:center
+}
+.intro-logo-stage{
+  width:min(430px,76vw);height:min(340px,43vh);margin-bottom:14px;
+  position:relative;z-index:10;display:grid;place-items:center;
+  perspective:1100px;transform-style:preserve-3d
+}
+.intro-logo-spin{width:100%;height:100%;display:grid;place-items:center;transform-style:preserve-3d;animation:spinLogo 4s linear infinite}
+@keyframes spinLogo{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
+.intro-logo{
+  max-width:420px;width:100%;max-height:100%;height:auto;object-fit:contain;
+  position:relative;z-index:10;backface-visibility:visible;transform-style:preserve-3d;
+  filter:drop-shadow(0 0 25px rgba(6,182,212,.62)) drop-shadow(0 0 55px rgba(126,78,255,.22));
+  animation:morphLogo 2.5s ease-in-out infinite alternate
+}
+@keyframes morphLogo{0%{transform:scale(1) rotateZ(-2deg) skewY(-1deg)}100%{transform:scale(1.08) rotateZ(2deg) skewY(1deg)}}
+.intro-title{
+  font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:2px;
+  background:linear-gradient(90deg,#10b981,#06b6d4,#f59e0b,#a855f7,#10b981);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;margin:0 0 10px;z-index:10;position:relative;
+  animation:hueShift 5s linear infinite
+}
+.intro-subtitle{
+  font-size:clamp(.8rem,2vw,1.2rem);color:#8297a8;letter-spacing:clamp(2px,.55vw,4px);
+  text-transform:uppercase;margin:0 0 34px;z-index:10;position:relative
+}
+.enter-btn{
+  padding:14px 40px;font-size:1.1rem;font-weight:700;color:#000;background:#10b981;
+  border:0;border-radius:30px;cursor:pointer;transition:all .3s;text-transform:uppercase;
+  letter-spacing:2px;z-index:10;position:relative;box-shadow:0 0 22px rgba(16,185,129,.28)
+}
+.enter-btn:hover{background:#34d399;box-shadow:0 0 30px rgba(16,185,129,.6);transform:scale(1.05)}
+.laser-container{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden;mix-blend-mode:screen}
+.laser{
+  position:absolute;height:4px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,#ef4444,transparent);
+  box-shadow:0 0 15px #ef4444,0 0 30px #ef4444;mix-blend-mode:screen;opacity:.8
+}
+.laser.l1{top:30%;left:-20%;width:140%;transform-origin:left center;animation:sweep1 3s infinite linear;background:linear-gradient(90deg,transparent,#ef4444,transparent);box-shadow:0 0 20px #ef4444}
+.laser.l2{top:60%;left:-20%;width:140%;transform-origin:left center;animation:sweep2 2.5s infinite linear reverse;background:linear-gradient(90deg,transparent,#06b6d4,transparent);box-shadow:0 0 20px #06b6d4}
+.laser.l3{top:45%;left:20%;width:120%;transform-origin:left center;animation:sweep3 4s infinite linear;background:linear-gradient(90deg,transparent,#f59e0b,transparent);box-shadow:0 0 20px #f59e0b}
+.laser.l4{top:75%;left:-10%;width:130%;transform-origin:left center;animation:sweep4 5s infinite linear reverse;background:linear-gradient(90deg,transparent,#10b981,transparent);box-shadow:0 0 20px #10b981}
+@keyframes sweep1{0%{transform:rotate(-30deg)}50%{transform:rotate(20deg)}100%{transform:rotate(-30deg)}}
+@keyframes sweep2{0%{transform:rotate(15deg)}50%{transform:rotate(-25deg)}100%{transform:rotate(15deg)}}
+@keyframes sweep3{0%{transform:rotate(60deg)}50%{transform:rotate(-10deg)}100%{transform:rotate(60deg)}}
+@keyframes sweep4{0%{transform:rotate(-45deg)}50%{transform:rotate(5deg)}100%{transform:rotate(-45deg)}}
+.speaker{
+  position:absolute;bottom:-50px;width:100px;height:200px;background:#111;border:3px solid #333;
+  border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;
+  box-shadow:inset 0 0 20px #000,0 0 30px rgba(6,182,212,.2);z-index:6;pointer-events:none
+}
+.speaker.left-1{left:5%;animation:bounce .6s infinite alternate}
+.speaker.left-2{left:18%;animation:bounce .7s infinite alternate-reverse}
+.speaker.right-1{right:5%;animation:bounce .5s infinite alternate-reverse}
+.speaker.right-2{right:18%;animation:bounce .8s infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-15px)}}
+.woofer{width:60px;height:60px;background:#222;border-radius:50%;border:3px solid #444;box-shadow:inset 0 0 15px #000;position:relative;flex:0 0 auto}
+.woofer:after{content:"";position:absolute;inset:15px;background:#111;border-radius:50%;box-shadow:0 0 15px #06b6d4;opacity:.8;animation:pulseWoofer .5s infinite alternate}
+@keyframes pulseWoofer{from{transform:scale(.9);opacity:.5}to{transform:scale(1.1);opacity:1}}
+@media(max-width:760px){.speaker{width:64px;height:150px;bottom:-55px}.woofer{width:42px;height:42px}.woofer:after{inset:10px}.speaker.left-2{left:16%}.speaker.right-2{right:16%}.intro-logo-stage{width:74vw;height:30vh}.intro-subtitle{margin-bottom:20px}.enter-btn{padding:12px 28px;font-size:.95rem}}
+@media(max-width:430px){.speaker.left-2,.speaker.right-2{display:none}.speaker{width:54px;height:130px}.woofer{width:36px;height:36px}.intro-content{padding-bottom:70px}}
+@media(prefers-reduced-motion:reduce){#intro-overlay:before,.intro-logo-spin,.intro-logo,.intro-title,.laser,.speaker,.woofer:after{animation:none!important}.intro-logo-spin{transform:none}}
+/* Clear-all equipment action in the app header */
+.btn.clear-all{background:#321b22;border-color:#8b4550;color:#ffb6bd;min-width:172px;white-space:nowrap}
+.btn.clear-all:hover{background:#48232c;border-color:#ef7f8a;color:#fff;box-shadow:0 0 18px rgba(255,110,125,.16)}
+.btn.clear-all:disabled{opacity:.7;cursor:pointer;transform:none;box-shadow:none}
+@media(max-width:850px){.btn.clear-all{min-width:0;padding:7px 8px!important;font-size:9px!important}}
+
+
+@media(max-width:1180px){.topbar{gap:10px;padding:0 12px}.brand{min-width:170px}.project-name{padding-left:10px}.project-name input{width:150px}.top-actions{gap:5px}.top-actions .btn{padding:7px 8px;font-size:9px}}
+@media(max-width:820px){.topbar{height:auto;min-height:62px;flex-wrap:wrap;padding:8px 10px}.top-actions{margin-left:0;flex-wrap:wrap}.project-name{margin-left:auto}.app{grid-template-rows:auto 48px minmax(0,1fr)}}
+
+/* Preserve the supplied logo in the compact application header */
+.brand-mark{overflow:hidden;background:transparent;border-radius:7px;box-shadow:none}.brand-mark img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 7px hsla(185,100%,70%,.5))}
+/* Clear-all equipment action in the app header */
+.btn.clear-all{background:#321b22;border-color:#8b4550;color:#ffb6bd;min-width:150px;white-space:nowrap}
+.btn.clear-all:hover{background:#48232c;border-color:#ef7f8a;color:#fff;box-shadow:0 0 18px rgba(255,110,125,.16)}
+.btn.clear-all:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+@media(max-width:850px){.btn.clear-all{min-width:0;padding:7px 8px!important;font-size:9px!important}}
+
+
+.interaction-guide{font:8px 'DM Mono',monospace;color:#91aab5;white-space:nowrap;letter-spacing:.025em}.interaction-guide b{color:#d7e6eb;font-weight:500}
+.floating-inspector{position:absolute;z-index:9;left:14px;top:66px;width:min(310px,calc(100% - 28px));max-height:calc(100% - 145px);overflow:auto;padding:13px;background:rgba(12,22,29,.96);border:1px solid #3a5864;border-radius:10px;box-shadow:var(--shadow);backdrop-filter:blur(16px);display:none;scrollbar-width:thin;scrollbar-color:#344b56 transparent}.floating-inspector.show{display:block}.floating-inspector .inspector-top{position:sticky;top:-13px;margin:-13px -13px 12px;padding:12px 13px;background:rgba(12,22,29,.97);border-bottom:1px solid var(--line);z-index:2}.floating-inspector .inspector-actions{padding-bottom:2px}.floating-inspector .object-title{margin-top:0}
+.controls-flash{position:absolute;z-index:8;left:50%;top:50%;transform:translate(-50%,-45%) scale(.96);width:min(360px,calc(100% - 32px));padding:17px 19px;border:1px solid rgba(116,211,255,.42);border-radius:12px;background:rgba(5,13,22,.94);box-shadow:0 18px 60px #0009,0 0 45px rgba(75,174,255,.15);backdrop-filter:blur(15px);display:grid;gap:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}.controls-flash.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.controls-flash.hide{opacity:0;transform:translate(-50%,-55%) scale(.97)}.controls-flash strong{font:10px 'DM Mono',monospace;letter-spacing:.2em;color:var(--mint);margin-bottom:3px}.controls-flash span{font-size:10px;color:#b7c8d0}.controls-flash b{display:inline-block;min-width:112px;color:#f0f7fa;font:9px 'DM Mono',monospace}
+@media(max-width:1200px){.interaction-guide{font-size:7px;max-width:390px;white-space:normal;line-height:1.35;text-align:right}.live-indicator{display:none}}@media(max-width:850px){.interaction-guide{display:none}}
+@media(max-width:850px){.floating-inspector{top:62px;left:10px;width:min(300px,calc(100% - 20px));max-height:calc(100% - 125px)}.controls-flash{top:46%}}
+
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="intro-overlay" role="dialog" aria-label="SmartEvents introduction">
+  <div class="laser-container" aria-hidden="true">
+    <div class="laser l1"></div><div class="laser l2"></div><div class="laser l3"></div><div class="laser l4"></div>
+  </div>
+  <div class="speaker left-1" aria-hidden="true"><div class="woofer"></div><div class="woofer"></div></div>
+  <div class="speaker left-2" aria-hidden="true"><div class="woofer"></div><div class="woofer"></div></div>
+  <div class="speaker right-1" aria-hidden="true"><div class="woofer"></div><div class="woofer"></div></div>
+  <div class="speaker right-2" aria-hidden="true"><div class="woofer"></div><div class="woofer"></div></div>
+  <div class="intro-content">
+    <div class="intro-logo-stage"><div class="intro-logo-spin"><img class="intro-logo" src="https://i.ibb.co/35Ys0TSt/image.png" alt="SmartEvents logo" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='https://i.ibb.co/kgSQnvVq/ezgif-com-remove-background.gif'}else{this.style.display='none'}"></div></div>
+    <div class="intro-title">SmartEvents</div>
+    <div class="intro-subtitle">Professional Production Studio</div>
+    <button class="enter-btn" id="enterStudio" type="button">Launch Studio</button>
+  </div>
+</div>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark"><img src="https://i.ibb.co/35Ys0TSt/image.png" alt="SmartEvents logo" onerror="this.style.display='none';this.parentElement.textContent='SE';this.parentElement.style.color='#c9eaff';this.parentElement.style.fontWeight='900';"></div><div>SMARTEVENTS<small>PRODUCTION STUDIO</small></div></div>
+    <div class="project-name"><input id="projectName" value="Neon Nights — Main Stage" aria-label="Project name"><span id="saveState">LOCAL PROJECT</span></div>
+    <div class="top-actions">
+      <button class="btn ghost" id="undoBtn" title="Undo (Ctrl+Z)">↶ Undo</button>
+      <button class="btn ghost" id="redoBtn" title="Redo (Ctrl+Y)">↷ Redo</button>
+      <button class="btn clear-all" id="clearEquipmentBtn" title="Remove every equipment item from the scene">▣ &nbsp;REMOVE ALL EQUIPMENT</button>
+      <button class="btn" id="loadBtn">Open</button>
+      <button class="btn" id="saveBtn">Save</button>
+      <button class="btn" id="exportBtn">Export JSON</button>
+      <button class="btn primary" id="briefBtn">Client brief ↗</button>
+      <input type="file" id="fileInput" accept=".json,application/json" class="hidden">
+    </div>
+  </header>
+  <nav class="modebar">
+    <span class="mode-label">WORKSPACE</span>
+    <button class="mode venue" data-mode="venue">▦ &nbsp;VENUE</button>
+    <button class="mode active" data-mode="lighting">✧ &nbsp;LIGHTING</button>
+    <button class="mode audio" data-mode="audio">◖)) &nbsp;AUDIO</button>
+    <button class="mode" data-mode="production">▤ &nbsp;PRODUCTION</button>
+    <span class="spacer"></span><span class="interaction-guide" aria-label="Mouse controls"><b>LEFT DRAG</b> ORBIT&nbsp; · &nbsp;<b>CTRL + SCROLL</b> ZOOM&nbsp; · &nbsp;<b>CLICK</b> SELECT / PLACE&nbsp; · &nbsp;<b>SHIFT + DRAG</b> MOVE&nbsp; · &nbsp;<b>RIGHT-CLICK</b> OPTIONS</span><span class="live-indicator" id="modeStatus">3D SCENE READY</span>
+  </nav>
+  <div class="workspace">
+    <aside class="sidebar">
+      <section class="section" id="equipmentSection">
+        <div class="section-head"><span class="eyebrow">01 / Equipment library</span><span class="count" id="libraryCount">12 ITEMS</span></div>
+        <div class="search">⌕ <input id="equipmentSearch" placeholder="Find equipment…"></div>
+        <div class="category-tabs"><button class="cat-tab active" data-filter="all">ALL</button><button class="cat-tab" data-filter="light">LIGHTING</button><button class="cat-tab" data-filter="audio">AUDIO</button><button class="cat-tab" data-filter="stage">STAGE</button></div>
+        <div class="equipment-list" id="equipmentList"></div>
+        <div class="side-note" id="placementHint"><b>Placement:</b> Choose a fixture, then click anywhere on the venue floor. Right-click an object for more options.</div>
+      </section>
+      <section class="section hidden" id="venueSection">
+        <div class="section-head"><span class="eyebrow">02 / Venue configuration</span></div>
+        <div class="preset-grid">
+          <button class="preset active" data-preset="hall"><strong>▤ Function hall</strong><small>24 × 18 m · 6 m high</small></button>
+          <button class="preset" data-preset="club"><strong>♫ Nightclub</strong><small>20 × 14 m · 5 m high</small></button>
+          <button class="preset" data-preset="festival"><strong>☼ Festival stage</strong><small>40 × 30 m · open air</small></button>
+          <button class="preset" data-preset="theatre"><strong>▣ Auditorium</strong><small>28 × 20 m · 8 m high</small></button>
+        </div>
+        <div class="divider"></div>
+        <div class="field-grid">
+          <div class="field"><label>WIDTH (m)</label><input id="venueWidth" type="number" min="6" max="100" value="24"></div>
+          <div class="field"><label>DEPTH (m)</label><input id="venueDepth" type="number" min="6" max="100" value="18"></div>
+        </div>
+        <div class="field"><label>CEILING HEIGHT (m)</label><input id="venueHeight" type="number" min="2" max="30" value="6"></div>
+        <div class="field"><label>VENUE / CLIENT</label><input id="venueName" placeholder="Venue name"></div>
+        <button class="btn primary" id="applyVenue" style="width:100%">Apply venue dimensions</button>
+        <div class="divider"></div>
+        <div class="eyebrow">SCENE ELEMENTS</div>
+        <label class="check-row"><input id="showWalls" type="checkbox" checked> Venue walls</label>
+        <label class="check-row"><input id="showRoof" type="checkbox"> Ceiling / roof</label>
+        <label class="check-row"><input id="showStage" type="checkbox" checked> Stage &amp; stage trim</label>
+        <label class="check-row"><input id="showTruss" type="checkbox" checked> Overhead truss</label>
+        <label class="check-row"><input id="showCrowd" type="checkbox"> Audience preview</label>
+        <div class="field" style="margin-top:11px"><label>EXPECTED GUESTS</label><div class="range-row"><input id="crowdCount" type="range" min="0" max="1000" value="180" step="10"><output id="crowdLabel">180</output></div></div>
+      </section>
+      <section class="section hidden" id="productionSection">
+        <div class="section-head"><span class="eyebrow">03 / Production overview</span></div>
+        <div class="side-note"><b>Planning checklist</b><br>Use this workspace to review the layout before producing a formal equipment and installation plan.</div>
+        <div class="divider"></div>
+        <label class="check-row"><input type="checkbox"> Confirm venue dimensions on site</label>
+        <label class="check-row"><input type="checkbox"> Verify rigging points and load ratings</label>
+        <label class="check-row"><input type="checkbox"> Confirm electrical distribution</label>
+        <label class="check-row"><input type="checkbox"> Check cable routes and access</label>
+        <label class="check-row"><input type="checkbox"> Review speaker coverage and SPL</label>
+        <label class="check-row"><input type="checkbox"> Review laser safety zones</label>
+        <label class="check-row"><input type="checkbox"> Confirm emergency egress remains clear</label>
+        <div class="divider"></div>
+        <div class="eyebrow">EQUIPMENT SCHEDULE</div><div id="scheduleList"></div>
+      </section>
+      <section class="section" id="visualSection">
+        <div class="section-head"><span class="eyebrow">VIEW OPTIONS</span></div>
+        <label class="check-row" id="beamsOption"><input id="showBeams" type="checkbox" checked> Lighting beams</label>
+        <label class="check-row" id="illumOption"><input id="showIllum" type="checkbox" checked> Fixture illumination</label>
+        <label class="check-row" id="coverageOption"><input id="showCoverage" type="checkbox" checked> Speaker dispersion</label>
+        <label class="check-row"><input id="showLabels" type="checkbox" checked> Equipment labels</label>
+        <label class="check-row"><input id="showGrid" type="checkbox" checked> Floor grid</label>
+        <div class="field" id="acousticFrequencyField"><label>ACOUSTIC FREQUENCY</label><select id="frequency"><option value="63">63 Hz · Sub bass</option><option value="125">125 Hz · Bass</option><option value="250">250 Hz · Low mid</option><option value="1000">1 kHz · Midrange</option><option value="4000">4 kHz · High</option></select></div>
+        <label class="check-row" id="acousticOption"><input id="showAcoustic" type="checkbox"> Acoustic coverage heatmap</label>
+        <div class="side-note" id="modeHint">Select a fixture to open its floating properties. Adjust beam angle, output and aim directly in the scene.</div>
+      </section>
+    </aside>
+    <main class="viewport" id="viewport">
+      <canvas id="view"></canvas>
+      <div class="hud"><span class="hud-pill" id="dimensionsHud"><strong>24 × 18 × 6 m</strong> &nbsp;VENUE</span><span class="hud-pill" id="equipmentHud">0 FIXTURES</span><span class="hud-pill" id="audienceHud">180 GUESTS</span><span class="hud-pill" id="modeHud">LIGHTING DESIGN</span></div>
+      <div class="view-controls"><button class="btn" data-camera="top">TOP</button><button class="btn" data-camera="front">FRONT</button><button class="btn active" data-camera="iso">3D</button><button class="btn" id="fitBtn">FIT VIEW</button></div>
+      <div class="view-legend" id="soundLegend"><div class="legend-title">RELATIVE SOUND LEVEL</div><div class="legend-gradient"></div><div class="legend-labels"><span>LOW</span><span>MEDIUM</span><span>HIGH</span></div></div>
+      <div class="crosshair"></div>
+      <div class="helpbar"><div class="help-text" id="helpText"><b>Left-drag</b> empty space to orbit &nbsp;·&nbsp; <b>Ctrl + scroll</b> to zoom &nbsp;·&nbsp; <b>Click</b> to select / place &nbsp;·&nbsp; <b>Shift + drag</b> a fixture to move &nbsp;·&nbsp; <b>Right-click</b> an object for options</div><div class="selection-chip" id="selectionChip">SELECTED: NONE</div></div>
+      <div class="controls-flash" id="controlsFlash" aria-live="polite"><strong>QUICK CONTROLS</strong><span><b>LEFT DRAG</b> Orbit camera</span><span><b>CTRL + SCROLL</b> Zoom in / out</span><span><b>CLICK</b> Select or place equipment</span><span><b>SHIFT + DRAG</b> Move selected equipment</span><span><b>RIGHT-CLICK</b> Equipment options</span></div>
+      <section class="floating-inspector" id="floatingInspector" aria-label="Selected equipment properties">
+        <div class="inspector-top"><span class="eyebrow">EQUIPMENT PROPERTIES</span><div style="display:flex;align-items:center;gap:8px"><span class="status-tag" id="inspectorStatus">SELECTED</span><button class="btn icon-btn" id="closeInspector" title="Close properties">×</button></div></div>
+        <div id="inspectorContent"></div>
+      </section>
+    </main>
+
+  </div>
+</div>
+<div id="contextMenu"></div><div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="briefModal"><div class="modal"><h2>Client production brief</h2><p>Review or copy this preliminary event equipment schedule.</p><textarea id="briefText" readonly></textarea><div class="modal-actions"><button class="btn" id="closeBrief">Close</button><button class="btn primary" id="copyBrief">Copy brief</button></div></div></div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+
+const $ = id => document.getElementById(id);
+// Supplied SmartEvents intro: original logo, four sweeping lasers, four speaker stacks,
+// pulsing woofers, animated gradient, spinning/morphing mark and launch button.
+(function initIntro(){
+ const overlay=$('intro-overlay');
+ const enter=$('enterStudio');
+ if(!overlay||!enter)return;
+ let closed=false;
+ function closeIntro(){
+  if(closed)return;
+  closed=true;
+  overlay.classList.add('leaving');
+  setTimeout(()=>{
+   overlay.remove();
+   const flash=$('controlsFlash');
+   if(flash){
+    flash.classList.add('show');
+    setTimeout(()=>{
+     flash.classList.add('hide');
+     setTimeout(()=>flash.classList.remove('show','hide'),260);
+    },2000);
+   }
+  },950);
+ }
+ enter.addEventListener('click',closeIntro);
+ document.addEventListener('keydown',e=>{if(!closed&&(e.key==='Escape'||e.key==='Enter'))closeIntro()});
+})();
+
+const catalog = [
+ {type:'moving',name:'Moving head spot',short:'MH',icon:'✧',group:'light',color:0x79caff,desc:'Profile / beam fixture'},
+ {type:'wash',name:'LED wash',short:'WASH',icon:'◉',group:'light',color:0xffc86f,desc:'Wide soft wash'},
+ {type:'par',name:'LED PAR',short:'PAR',icon:'◌',group:'light',color:0xffa875,desc:'Static LED fixture'},
+ {type:'strobe',name:'Strobe / blinder',short:'STR',icon:'✴',group:'light',color:0xff8297,desc:'Audience effect'},
+ {type:'laser',name:'Laser projector',short:'LSR',icon:'⌁',group:'light',color:0xff647f,desc:'Laser effect projector'},
+ {type:'hazer',name:'Hazer',short:'HZ',icon:'〰',group:'light',color:0xb5c7d2,desc:'Atmospheric effect'},
+ {type:'linearray',name:'Line array',short:'LA',icon:'▥',group:'audio',color:0x65dfbd,desc:'Suspended PA system'},
+ {type:'speaker',name:'PA speaker',short:'PA',icon:'◖',group:'audio',color:0x6ddcb8,desc:'Full-range loudspeaker'},
+ {type:'sub',name:'Subwoofer',short:'SUB',icon:'◉',group:'audio',color:0xb59cff,desc:'Low-frequency enclosure'},
+ {type:'monitor',name:'Stage monitor',short:'MON',icon:'⌑',group:'audio',color:0x77b7ee,desc:'Stage foldback'},
+ {type:'delay',name:'Delay speaker',short:'DLY',icon:'◗',group:'audio',color:0x68cbd8,desc:'Distributed PA'},
+ {type:'dj',name:'DJ / control desk',short:'DJ',icon:'▰',group:'stage',color:0xf1a5d0,desc:'Performance control position'}
+];
+const presets={hall:{w:24,d:18,h:6,roof:false},club:{w:20,d:14,h:5,roof:true},festival:{w:40,d:30,h:10,roof:false},theatre:{w:28,d:20,h:8,roof:true}};
+let room={w:24,d:18,h:6,venue:'',preset:'hall',walls:true,roof:false,stage:true,truss:true,crowd:false,guests:180};
+let equipment=[],selectedId=null,placingType=null,mode='lighting',filter='all',nextId=1;
+let showBeams=true,showIllum=true,showCoverage=true,showLabels=true,showGrid=true,showAcoustic=false;
+let undoStack=[],redoStack=[],dragState=null,lastToast=0;
+
+// Three.js scene
+const canvas=$('view');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x0b141b);scene.fog=new THREE.Fog(0x0b141b,40,120);
+const camera=new THREE.PerspectiveCamera(48,1,.1,500);camera.position.set(28,22,31);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+const controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.07;controls.target.set(0,1,0);controls.maxPolarAngle=Math.PI*.49;controls.minDistance=5;controls.maxDistance=150;controls.enableZoom=false;controls.mouseButtons={LEFT:THREE.MOUSE.ROTATE,MIDDLE:THREE.MOUSE.PAN,RIGHT:null};
+scene.add(new THREE.HemisphereLight(0x9dc9e5,0x1a2028,1.7));
+const keyLight=new THREE.DirectionalLight(0xffffff,2.2);keyLight.position.set(-14,28,16);keyLight.castShadow=true;keyLight.shadow.mapSize.set(2048,2048);keyLight.shadow.camera.left=-55;keyLight.shadow.camera.right=55;keyLight.shadow.camera.top=55;keyLight.shadow.camera.bottom=-55;scene.add(keyLight);
+const stageGlow=new THREE.PointLight(0x2b9eaa,20,35,2);stageGlow.position.set(0,3,-7);scene.add(stageGlow);
+const roomRoot=new THREE.Group();const equipmentRoot=new THREE.Group();scene.add(roomRoot,equipmentRoot);
+const raycaster=new THREE.Raycaster();const pointer=new THREE.Vector2();const floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);const tempVec=new THREE.Vector3();
+let floorMesh=null,gridHelper=null,acousticMesh=null,acousticCanvas=null,acousticCtx=null,acousticTexture=null,crowdMesh=null,selectionBox=null;
+const sharedPoolTexture=(()=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');const g=x.createRadialGradient(64,64,2,64,64,64);g.addColorStop(0,'rgba(255,255,255,.9)');g.addColorStop(.25,'rgba(255,255,255,.5)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,128,128);return new THREE.CanvasTexture(c)})();
+function material(color,roughness=.55,metalness=.18,extra={}){return new THREE.MeshStandardMaterial({color,roughness,metalness,...extra})}
+function addBox(parent,w,h,d,mat,x,y,z){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
+function addCylinderBetween(parent,a,b,r,mat,radial=12){const dir=new THREE.Vector3().subVectors(b,a);const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r,r,dir.length(),radial),mat);mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());mesh.castShadow=true;parent.add(mesh);return mesh}
+function disposeTree(root){root.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material]){if(m.map&&m.map!==sharedPoolTexture)m.map.dispose();m.dispose()}}})}
+function clearRoot(root){while(root.children.length){const c=root.children[0];root.remove(c);disposeTree(c)}}
+function floorPointFromEvent(e){const r=canvas.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const p=new THREE.Vector3();return raycaster.ray.intersectPlane(floorPlane,p)?p:null}
+function fixtureFor(type){return catalog.find(c=>c.type===type)}
+function formatMeters(n){return Number(n).toFixed(1)}
+function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(toast._timer);el._timer=setTimeout(()=>el.classList.remove('show'),1900)}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function buildRoom(){
+ clearRoot(roomRoot);const {w,d,h}=room;const floorMat=material(0x27363e,.82,.12);floorMesh=addBox(roomRoot,w,.2,d,floorMat,0,-.12,0);floorMesh.userData.floor=true;
+ if(showGrid){gridHelper=new THREE.GridHelper(Math.ceil(Math.max(w,d)),Math.ceil(Math.max(w,d)),0x66808b,0x344d58);gridHelper.scale.set(w/Math.max(w,d),1,d/Math.max(w,d));gridHelper.position.y=-.012;roomRoot.add(gridHelper)}else gridHelper=null;
+ const trim=material(0x526873,.48,.55);const wallMat=new THREE.MeshStandardMaterial({color:0x50636e,roughness:.86,metalness:.05,transparent:true,opacity:.14,side:THREE.DoubleSide,depthWrite:false});
+ if(room.walls){addBox(roomRoot,w,h,.16,wallMat,0,h/2,-d/2);addBox(roomRoot,.16,h,d,wallMat,-w/2,h/2,0);addBox(roomRoot,.16,h,d,wallMat,w/2,h/2,0);addBox(roomRoot,w,h,.16,wallMat,0,h/2,d/2);
+  // Architectural corner posts and top edge detail
+  for(const x of [-w/2,w/2])for(const z of [-d/2,d/2])addBox(roomRoot,.13,h,.13,trim,x,h/2,z);
+  addBox(roomRoot,w,.09,.22,trim,0,h-.06,-d/2);addBox(roomRoot,w,.09,.22,trim,0,h-.06,d/2);
+ }
+ if(room.roof)addBox(roomRoot,w,.12,d,wallMat,0,h,0);
+ if(room.stage){const sw=w*.56,sd=Math.min(4.5,d*.24),sz=-d/2+sd*.58;addBox(roomRoot,sw,.58,sd,material(0x354a54,.65,.28),0,.29,sz);addBox(roomRoot,sw,.045,.09,material(0x62e7bd,.3,.5,{emissive:0x174a3d}),0,.6,sz);addBox(roomRoot,sw*.82,.09,.14,material(0x1b2a32),0,.66,sz+sd*.31);
+  // Stage access steps
+  for(let i=0;i<3;i++)addBox(roomRoot,sw*.18,.16,.35,material(0x435760,.7),-sw*.34,.08+i*.15,sz+sd*.56+i*.31);
+ }
+ if(room.truss&&room.roof!==false){const z=-d*.29,y=h-.55;addBox(roomRoot,w*.72,.16,.16,material(0x596d76,.35,.75),0,y,z);addBox(roomRoot,.16,.16,d*.47,material(0x596d76,.35,.75),-w*.36,y,-d*.05);addBox(roomRoot,.16,.16,d*.47,material(0x596d76,.35,.75),w*.36,y,-d*.05);}
+ else if(room.truss&&h>=3){const z=-d*.31,y=h-.5;const tr=material(0x71828a,.35,.8);addBox(roomRoot,w*.72,.13,.13,tr,0,y,z);addBox(roomRoot,.13,.13,d*.4,tr,-w*.36,y,-d*.05);addBox(roomRoot,.13,.13,d*.4,tr,w*.36,y,-d*.05);}
+ buildCrowd();
+ if(acousticMesh){acousticMesh.geometry.dispose();acousticMesh.geometry=new THREE.PlaneGeometry(w,d);acousticMesh.position.set(0,.015,0)}
+ $('dimensionsHud').innerHTML=`<strong>${w} × ${d} × ${h} m</strong> &nbsp;VENUE`;
+ if(equipment.length)rebuildEquipment();updateAcousticMap();updateStats();
+}
+
+function buildCrowd(){if(crowdMesh){roomRoot.remove(crowdMesh);crowdMesh=null}if(!room.crowd||room.guests<=0)return;const count=Math.min(room.guests,1200);const geo=new THREE.CapsuleGeometry(.13,.45,3,6);const mat=material(0x7e8e94,.9,.02);crowdMesh=new THREE.InstancedMesh(geo,mat,count);crowdMesh.castShadow=true;crowdMesh.receiveShadow=true;const dummy=new THREE.Object3D();const sw=room.w*.56,sd=Math.min(4.5,room.d*.24),stageZ=-room.d/2+sd*.58;let seed=5489;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};for(let i=0;i<count;i++){const x=(rand()-.5)*(room.w-2);const z=stageZ+sd*.65+rand()*(room.d*.5);dummy.position.set(x,.36,z);dummy.rotation.y=rand()*Math.PI*2;const s=.8+rand()*.35;dummy.scale.set(s,s,s);dummy.updateMatrix();crowdMesh.setMatrixAt(i,dummy.matrix);const colors=[0x536b75,0x526b5d,0x78655b,0x4e566b,0x827b65];crowdMesh.setColorAt(i,new THREE.Color(colors[i%colors.length]))}roomRoot.add(crowdMesh);}
+
+function makeEquipment(data){
+ const c=fixtureFor(data.type);if(!c)return null;const group=new THREE.Group();group.userData.equipmentId=data.id;const body=material(c.color,.34,.48),dark=material(0x111b21,.48,.6),metal=material(0x52636a,.32,.85),glow=new THREE.MeshStandardMaterial({color:c.color,emissive:c.color,emissiveIntensity:.8,roughness:.3});
+ const add=m=>{m.castShadow=true;m.receiveShadow=true;group.add(m);return m};
+ const addBoxLocal=(w,h,d,m,x,y,z)=>addBox(group,w,h,d,m,x,y,z);
+ if(data.type==='linearray'){for(let i=0;i<5;i++){addBoxLocal(.66,.43,.52,body,0,.28+i*.4,0);addBoxLocal(.5,.025,.025,dark,0,.28+i*.4,.266)}addBoxLocal(.12,.18,.12,metal,0,2.2,0)}
+ else if(['speaker','delay'].includes(data.type)){addBoxLocal(.78,1.18,.65,body,0,.6,0);const woo=new THREE.Mesh(new THREE.CircleGeometry(.23,28),dark);woo.position.set(0,.7,.331);add(woo);const ring=new THREE.Mesh(new THREE.TorusGeometry(.24,.025,8,28),metal);ring.position.set(0,.7,.337);add(ring);addBoxLocal(.54,.025,.02,metal,0,1.08,.337)}
+ else if(data.type==='sub'){addBoxLocal(.98,.76,.82,body,0,.38,0);const woo=new THREE.Mesh(new THREE.CircleGeometry(.29,32),dark);woo.position.set(0,.38,.416);add(woo);const ring=new THREE.Mesh(new THREE.TorusGeometry(.3,.025,8,32),metal);ring.position.set(0,.38,.42);add(ring)}
+ else if(data.type==='monitor'){const wedge=new THREE.Mesh(new THREE.BoxGeometry(.9,.4,.78),body);wedge.position.y=.22;wedge.rotation.x=-.28;add(wedge);const grill=new THREE.Mesh(new THREE.CircleGeometry(.25,24),dark);grill.position.set(0,.3,.25);add(grill)}
+ else if(['moving','wash','par','strobe','laser'].includes(data.type)){
+  addBoxLocal(.72,.24,.62,dark,0,.12,0);const yoke=new THREE.Mesh(new THREE.TorusGeometry(.22,.045,8,24,Math.PI),metal);yoke.position.y=.36;yoke.rotation.x=Math.PI/2;add(yoke);addBoxLocal(.42,.34,.48,body,0,.57,0);const lens=new THREE.Mesh(new THREE.CircleGeometry(data.type==='wash'?.18:.13,28),glow);lens.position.set(0,.57,.246);add(lens);const rim=new THREE.Mesh(new THREE.TorusGeometry(data.type==='wash'?.19:.14,.025,8,28),metal);rim.position.set(0,.57,.25);add(rim);
+  if(data.type==='moving'||data.type==='wash'||data.type==='par'||data.type==='strobe'){
+   const target=new THREE.Object3D();target.position.set(data.aimX-data.x,-data.y+0.1,data.aimZ-data.z);group.add(target);
+   const spot=new THREE.SpotLight(c.color,data.intensity??24,Math.max(room.w,room.d)*1.25,THREE.MathUtils.degToRad(data.beamAngle??28),.55,1.4);spot.position.set(0,.55,.1);spot.target=target;spot.castShadow=false;group.add(spot);
+   const len=Math.max(2,Math.hypot(data.aimX-data.x,data.aimZ-data.z,data.y-.1));const radius=Math.tan(THREE.MathUtils.degToRad((data.beamAngle??28)/2))*len;
+   const beam=new THREE.Mesh(new THREE.CylinderGeometry(.035,Math.max(.15,radius),len,24,1,true),new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:data.type==='strobe'?.045:.105,depthWrite:false,side:THREE.DoubleSide}));const source=new THREE.Vector3(0,.55,.1);const dir=new THREE.Vector3(data.aimX-data.x,.1-data.y-.55,data.aimZ-data.z-.1).normalize();beam.position.copy(source).addScaledVector(dir,len/2);beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().negate());group.add(beam);beam.userData.beam=true;
+   const pool=new THREE.Mesh(new THREE.PlaneGeometry(Math.max(1,radius*1.4),Math.max(1,radius*1.4)),new THREE.MeshBasicMaterial({color:c.color,map:sharedPoolTexture,transparent:true,opacity:.3,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide}));pool.rotation.x=-Math.PI/2;pool.position.set(data.aimX-data.x,.02-data.y,data.aimZ-data.z);pool.userData.pool=true;group.add(pool);
+  } else if(data.type==='laser'){
+   const len=Math.max(room.w,room.d)*.8;const laser=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,len,8),new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.8}));laser.rotation.x=Math.PI/2;laser.position.set(0,.58,len*.35);group.add(laser);
+  }
+ }
+ else if(data.type==='hazer'){addBoxLocal(.86,.42,.62,body,0,.21,0);addBoxLocal(.38,.1,.03,dark,0,.28,.32)}
+ else if(data.type==='dj'){addBoxLocal(1.75,.92,.8,body,0,.46,0);addBoxLocal(1.52,.07,.6,dark,0,.96,0);for(let i=0;i<3;i++){const dial=new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,.04,18),metal);dial.position.set(-.5+i*.5,1.02,.12);add(dial)}}
+ if(c.group==='audio'&&showCoverage&&['speaker','linearray','delay'].includes(data.type)){const length=room.d*.52;const cone=new THREE.Mesh(new THREE.ConeGeometry(Math.max(1.2,length*.24),length,32,1,true),new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.075,side:THREE.DoubleSide,depthWrite:false}));cone.rotation.x=Math.PI/2;cone.position.set(0,.72,length*.38);group.add(cone);cone.userData.coverage=true}
+ if(c.group==='audio'&&data.type==='sub'&&showCoverage){const ring=new THREE.Mesh(new THREE.RingGeometry(1.3,2.5,64),new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:.2,side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=.025;group.add(ring);ring.userData.coverage=true}
+ if(!showBeams)group.traverse(o=>{if(o.userData.beam||o.userData.pool)o.visible=false});if(!showIllum)group.traverse(o=>{if(o.isSpotLight)o.visible=false});
+ group.position.set(data.x,data.y,data.z);group.rotation.y=data.rotation||0;group.traverse(o=>{o.userData.parentEquipment=group});equipmentRoot.add(group);data.object=group;
+ if(showLabels){const label=makeLabel(data.label);label.position.set(0,2.45,0);group.add(label);data.labelObject=label}
+ return group;
+}
+function makeLabel(text){const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');x.fillStyle='rgba(7,16,22,.82)';x.beginPath();x.roundRect(8,8,496,112,18);x.fill();x.strokeStyle='rgba(98,231,189,.8)';x.lineWidth=4;x.stroke();x.font='bold 38px Manrope, sans-serif';x.fillStyle='#eaf3f6';x.textAlign='center';x.textBaseline='middle';x.fillText(text.slice(0,25),256,64);const tex=new THREE.CanvasTexture(c);const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false}));spr.scale.set(2.5,.62,1);return spr}
+function addEquipment(type,pos){const c=fixtureFor(type);if(!c)return;saveHistory();const isLight=c.group==='light';const y=isLight?Math.max(2,room.h-.55):(type==='dj'?.1:type==='monitor'?.1:0);const data={id:'eq-'+nextId++,type,label:c.name,x:THREE.MathUtils.clamp(pos.x,-room.w/2+.5,room.w/2-.5),y,z:THREE.MathUtils.clamp(pos.z,-room.d/2+.5,room.d/2-.5),rotation:0,aimX:0,aimZ:room.d*.18,beamAngle:type==='wash'?55:type==='par'?40:28,intensity:24};if(type==='laser'){data.aimX=data.x+3;data.aimZ=data.z+5}equipment.push(data);makeEquipment(data);selectEquipment(data.id);updateStats();updateAcousticMap();toast(`${c.name} added to venue`);}
+function rebuildEquipment(){clearRoot(equipmentRoot);equipment.forEach(e=>makeEquipment(e));if(selectedId&&!equipment.some(e=>e.id===selectedId))selectedId=null;refreshSelectionBox();renderInspector();updateStats();}
+function findEquipmentHit(e){const r=canvas.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(equipmentRoot.children,true);for(const h of hits){let o=h.object;while(o&&!o.userData.equipmentId)o=o.parent;if(o?.userData.equipmentId)return equipment.find(x=>x.id===o.userData.equipmentId)}return null}
+function selectEquipment(id){selectedId=id;const d=equipment.find(e=>e.id===id);renderInspector();refreshSelectionBox();$('selectionChip').textContent=d?`SELECTED: ${d.label.toUpperCase()}`:'SELECTED: NONE';$('selectionChip').classList.toggle('show',!!d);}
+function refreshSelectionBox(){if(selectionBox){scene.remove(selectionBox);selectionBox.geometry?.dispose();selectionBox.material?.dispose();selectionBox=null}const d=equipment.find(e=>e.id===selectedId);if(d?.object){selectionBox=new THREE.BoxHelper(d.object,0x62e7bd);scene.add(selectionBox)}}
+
+function renderEquipmentLibrary(){const q=$('equipmentSearch').value.trim().toLowerCase();const filtered=catalog.filter(c=>(filter==='all'||c.group===filter)&&(`${c.name} ${c.desc}`.toLowerCase().includes(q)));$('equipmentList').innerHTML=filtered.map(c=>`<button class="equipment-card ${placingType===c.type?'selected-tool':''}" data-type="${c.type}"><span class="eq-icon" style="color:#${c.color.toString(16).padStart(6,'0')}">${c.icon}</span><strong>${c.name}</strong><small>${c.desc}</small><span class="addmark">＋</span></button>`).join('');$('libraryCount').textContent=`${filtered.length} ITEMS`;document.querySelectorAll('.equipment-card').forEach(b=>b.onclick=()=>{placingType=b.dataset.type;controls.enabled=false;renderEquipmentLibrary();toast(`Place ${fixtureFor(placingType).name}: click a position in the 3D venue · Esc cancels`)});}
+function updateStats(){const lights=equipment.filter(e=>fixtureFor(e.type)?.group==='light').length,audio=equipment.filter(e=>fixtureFor(e.type)?.group==='audio').length;$('equipmentHud').textContent=`${equipment.length} FIXTURES`;$('audienceHud').textContent=`${room.guests} GUESTS`;const clearBtn=$('clearEquipmentBtn');if(clearBtn){clearBtn.disabled=false;clearBtn.title=equipment.length?`Remove all ${equipment.length} equipment items (Undo can restore them)`:'The venue is already clear';}renderSchedule()}
+function renderSchedule(){const counts={};equipment.forEach(e=>counts[e.label]=(counts[e.label]||0)+1);$('scheduleList').innerHTML=Object.keys(counts).length?Object.entries(counts).map(([k,v])=>`<div class="summary-row"><span>${escapeHTML(k)}</span><strong>× ${v}</strong></div>`).join(''):'<p class="side-note">No equipment placed yet.</p>'}
+
+function renderInspector(){const host=$('inspectorContent');const panel=$('floatingInspector');const d=equipment.find(e=>e.id===selectedId);if(!d){host.innerHTML='';panel.classList.remove('show');return}panel.classList.add('show');const c=fixtureFor(d.type);$('inspectorStatus').textContent='SELECTED';const isLight=c.group==='light';const isAudio=c.group==='audio';host.innerHTML=`
+ <div class="object-title"><div class="object-symbol" style="color:#${c.color.toString(16).padStart(6,'0')}">${c.icon}</div><div style="min-width:0"><strong>${escapeHTML(d.label)}</strong><small>${d.type.toUpperCase()} · ${d.id}</small></div></div>
+ <div class="field"><label>DISPLAY NAME</label><input id="propLabel" type="text" value="${escapeHTML(d.label)}"></div>
+ <div class="inspector-subhead">POSITION · METRES</div><div class="axis-row"><div class="field"><label>X</label><input id="propX" type="number" step=".1" value="${formatMeters(d.x)}"></div><div class="field"><label>Y / HEIGHT</label><input id="propY" type="number" step=".1" value="${formatMeters(d.y)}"></div><div class="field"><label>Z</label><input id="propZ" type="number" step=".1" value="${formatMeters(d.z)}"></div></div>
+ <div class="field" style="margin-top:10px"><label>ROTATION · DEGREES</label><div class="range-row"><input id="propRotation" type="range" min="0" max="359" value="${Math.round(THREE.MathUtils.radToDeg(d.rotation))}"><output id="rotationValue">${Math.round(THREE.MathUtils.radToDeg(d.rotation))}°</output></div></div>
+ ${isLight?`<div class="inspector-subhead">BEAM & AIM</div><div class="field"><label>BEAM ANGLE</label><div class="range-row"><input id="propBeam" type="range" min="5" max="100" value="${d.beamAngle}"><output id="beamValue">${d.beamAngle}°</output></div></div><div class="field"><label>OUTPUT INTENSITY (VISUAL)</label><div class="range-row"><input id="propIntensity" type="range" min="1" max="100" value="${d.intensity}"><output id="intensityValue">${d.intensity}%</output></div></div><div class="field-grid"><div class="field"><label>AIM X</label><input id="propAimX" type="number" step=".5" value="${formatMeters(d.aimX)}"></div><div class="field"><label>AIM Z</label><input id="propAimZ" type="number" step=".5" value="${formatMeters(d.aimZ)}"></div></div><button class="small-action" id="aimCenter">◎ Aim at stage centre</button>`:''}
+ ${isAudio?`<div class="inspector-subhead">AUDIO DEVICE</div><div class="properties-grid"><div class="property"><span>Device class</span><strong>${d.type==='sub'?'SUB':d.type==='linearray'?'PA ARRAY':d.type.toUpperCase()}</strong></div><div class="property"><span>Coverage view</span><strong>${d.type==='sub'?'OMNI':'DIRECTIVE'}</strong></div></div><p class="muted" style="font-size:9px;line-height:1.55">Coverage is a relative visual estimate. Actual SPL and frequency response depend on the loudspeaker model, processing, orientation, venue materials and operating level.</p>`:''}
+ <div class="inspector-actions"><button class="btn" id="duplicateItem">＋ Duplicate</button><button class="btn danger" id="deleteItem">Delete</button><button class="btn full primary" id="applyProps">Apply properties</button></div>`;
+ const updateLive=()=>{d.label=$('propLabel').value||c.name;d.x=+$('propX').value||0;d.y=+$('propY').value||0;d.z=+$('propZ').value||0;d.rotation=THREE.MathUtils.degToRad(+$('propRotation').value||0);if(isLight){d.beamAngle=+$('propBeam').value;d.intensity=+$('propIntensity').value;d.aimX=+$('propAimX').value||0;d.aimZ=+$('propAimZ').value||0;$('beamValue').textContent=d.beamAngle+'°';$('intensityValue').textContent=d.intensity+'%'}$('rotationValue').textContent=Math.round(THREE.MathUtils.radToDeg(d.rotation))+'°';if(d.object){d.object.position.set(d.x,d.y,d.z);d.object.rotation.y=d.rotation}rebuildOneFixture(d);if(selectionBox)selectionBox.update();updateAcousticMap();};
+ $('applyProps').onclick=()=>{saveHistory();updateLive();renderInspector();toast('Equipment properties applied')};
+ $('propRotation').oninput=()=>{d.rotation=THREE.MathUtils.degToRad(+$('propRotation').value);$('rotationValue').textContent=$('propRotation').value+'°';if(d.object)d.object.rotation.y=d.rotation;refreshSelectionBox()};
+ if(isLight){$('propBeam').oninput=()=>{$('beamValue').textContent=$('propBeam').value+'°';d.beamAngle=+$('propBeam').value;rebuildOneFixture(d)};$('propIntensity').oninput=()=>{$('intensityValue').textContent=$('propIntensity').value+'%';d.intensity=+$('propIntensity').value;rebuildOneFixture(d)};$('aimCenter').onclick=()=>{saveHistory();d.aimX=0;d.aimZ=room.d*.18;rebuildOneFixture(d);renderInspector();toast('Fixture aimed at stage centre')}}
+ $('duplicateItem').onclick=()=>duplicateEquipment(d.id);$('deleteItem').onclick=()=>deleteEquipment(d.id);
+}
+function rebuildOneFixture(d){if(d.object){equipmentRoot.remove(d.object);disposeTree(d.object)}makeEquipment(d);if(selectedId===d.id)refreshSelectionBox()}
+
+// Approximate sound field: direct source + first-order image sources for wall reflections.
+function ensureAcousticOverlay(){if(acousticMesh)return;acousticCanvas=document.createElement('canvas');acousticCanvas.width=256;acousticCanvas.height=256;acousticCtx=acousticCanvas.getContext('2d');acousticTexture=new THREE.CanvasTexture(acousticCanvas);acousticMesh=new THREE.Mesh(new THREE.PlaneGeometry(room.w,room.d),new THREE.MeshBasicMaterial({map:acousticTexture,transparent:true,opacity:.72,depthWrite:false,side:THREE.DoubleSide}));acousticMesh.rotation.x=-Math.PI/2;acousticMesh.position.y=.016;scene.add(acousticMesh);}
+function updateAcousticMap(){ensureAcousticOverlay();acousticMesh.visible=showAcoustic&&mode==='audio';const sources=equipment.filter(e=>['speaker','linearray','sub','delay','monitor'].includes(e.type));if(!sources.length||!showAcoustic){acousticCtx.clearRect(0,0,256,256);acousticTexture.needsUpdate=true;return}const W=256,H=256,img=acousticCtx.createImageData(W,H);const freq=+$('frequency').value||63;const values=new Float32Array(W*H);let max=0;const srcs=[];for(const s of sources){const power=s.type==='sub'?1.4:s.type==='linearray'?1.25:s.type==='monitor'?.55:.9;const omni=s.type==='sub';const angle=s.rotation||0;const dirX=Math.sin(angle),dirZ=Math.cos(angle);const add=(x,z,weight)=>srcs.push({x,z,power:power*weight,omni,dirX,dirZ});add(s.x,s.z,1);if(room.walls){add(-room.w-s.x,s.z,.22);add(room.w-s.x,s.z,.22);add(s.x,-room.d-s.z,.17);add(s.x,room.d-s.z,.17)}}
+ const freqFactor=freq<=125?1:freq<=250?.88:freq<=1000?.72:.58;for(let py=0;py<H;py++){const z=(.5-py/(H-1))*room.d;for(let px=0;px<W;px++){const x=(px/(W-1)-.5)*room.w;let total=0;for(const s of srcs){const dx=x-s.x,dz=z-s.z,dist=Math.sqrt(dx*dx+dz*dz+1);let direct=1;if(!s.omni){const along=dx*s.dirX+dz*s.dirZ;const side=Math.abs(dx*s.dirZ-dz*s.dirX);direct=Math.max(.12,Math.pow(Math.max(0,along)/(Math.sqrt(along*along+side*side)+.001),1.7))}total+=s.power*freqFactor*direct/(1+Math.pow(dist/2.6,1.55))}values[py*W+px]=total;if(total>max)max=total}}
+ for(let i=0;i<values.length;i++){const v=Math.pow(values[i]/(max||1),.58);const hue=(1-v)*.66;const rgb=hslToRgb(hue,.78,.48);const a=Math.round(190*Math.pow(v,.7));const j=i*4;img.data[j]=rgb[0];img.data[j+1]=rgb[1];img.data[j+2]=rgb[2];img.data[j+3]=a}acousticCtx.putImageData(img,0,0);acousticTexture.needsUpdate=true;acousticMesh.geometry.dispose();acousticMesh.geometry=new THREE.PlaneGeometry(room.w,room.d);acousticMesh.visible=showAcoustic&&mode==='audio';}
+function hslToRgb(h,s,l){let r,g,b;if(s===0)r=g=b=l;else{const f=(p,q,t)=>{if(t<0)t++;if(t>1)t--;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p};const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q;r=f(p,q,h+1/3);g=f(p,q,h);b=f(p,q,h-1/3)}return[Math.round(r*255),Math.round(g*255),Math.round(b*255)]}
+
+function setMode(next){mode=next;document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('equipmentSection').classList.toggle('hidden',mode==='venue'||mode==='production');$('venueSection').classList.toggle('hidden',mode!=='venue');$('productionSection').classList.toggle('hidden',mode!=='production');$('visualSection').classList.toggle('hidden',mode==='production');$('modeHud').textContent={venue:'VENUE DESIGN',lighting:'LIGHTING DESIGN',audio:'AUDIO DESIGN',production:'PRODUCTION PLAN'}[mode];$('modeStatus').textContent={venue:'VENUE EDITOR',lighting:'LIGHTING DESIGN',audio:'ACOUSTIC VIEW',production:'EQUIPMENT SCHEDULE'}[mode];$('soundLegend').classList.toggle('show',mode==='audio'&&showAcoustic);$('acousticOption').style.display=mode==='audio'?'flex':'none';$('acousticFrequencyField').style.display=mode==='audio'?'grid':'none';$('illumOption').style.display=mode==='lighting'?'flex':'none';$('beamsOption').style.display=mode==='lighting'?'flex':'none';$('coverageOption').style.display=mode==='audio'?'flex':'none';$('modeHint').textContent=mode==='lighting'?'Select a fixture to open its floating properties. Adjust beam angle, output and aim directly in the scene.':mode==='audio'?'Enable the acoustic heatmap to compare relative coverage from speaker and subwoofer positions.':mode==='venue'?'Change the venue footprint, ceiling height, stage, rigging and audience preview.':'Review the equipment schedule and production checklist before exporting a client brief.';equipment.forEach(e=>e.object?.traverse(o=>{if(o.userData.beam||o.userData.pool)o.visible=showBeams&&mode==='lighting';if(o.isSpotLight)o.visible=showIllum&&mode==='lighting';if(o.userData.coverage)o.visible=showCoverage&&mode==='audio'}));updateAcousticMap();}
+
+function fitCamera(){const s=Math.max(room.w,room.d);camera.position.set(s*1.12,s*.95,s*1.25);controls.target.set(0,room.h*.2,0);camera.far=s*15+100;camera.updateProjectionMatrix();controls.update()}
+function cameraPreset(which){const s=Math.max(room.w,room.d);if(which==='top')camera.position.set(0,s*1.7,.001);else if(which==='front')camera.position.set(0,s*.55,s*1.8);else camera.position.set(s*1.12,s*.95,s*1.25);controls.target.set(0,room.h*.18,0);controls.update();document.querySelectorAll('[data-camera]').forEach(b=>b.classList.toggle('active',b.dataset.camera===which))}
+function onResize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()};new ResizeObserver(onResize).observe($('viewport'));window.addEventListener('resize',onResize);
+
+// Edit history stores the project model, not Three.js objects.
+function getState(){return JSON.stringify({projectName:$('projectName').value,room,equipment:equipment.map(({object,labelObject,...e})=>e),nextId,showBeams,showIllum,showCoverage,showLabels,showGrid,showAcoustic})}
+function restoreState(raw){const s=JSON.parse(raw);if(s.room)room={...room,...s.room};equipment=s.equipment||[];nextId=s.nextId||1;showBeams=s.showBeams??true;showIllum=s.showIllum??true;showCoverage=s.showCoverage??true;showLabels=s.showLabels??true;showGrid=s.showGrid??true;showAcoustic=s.showAcoustic??false;$('projectName').value=s.projectName||'Untitled event plan';syncControls();buildRoom();rebuildEquipment();$('showBeams').checked=showBeams;$('showIllum').checked=showIllum;$('showCoverage').checked=showCoverage;$('showLabels').checked=showLabels;$('showGrid').checked=showGrid;$('showAcoustic').checked=showAcoustic;updateAcousticMap()}
+function saveHistory(){undoStack.push(getState());if(undoStack.length>40)undoStack.shift();redoStack=[];updateHistoryButtons()}
+function undo(){if(!undoStack.length)return;redoStack.push(getState());restoreState(undoStack.pop());updateHistoryButtons();toast('Undo complete')}
+function redo(){if(!redoStack.length)return;undoStack.push(getState());restoreState(redoStack.pop());updateHistoryButtons();toast('Redo complete')}
+function updateHistoryButtons(){$('undoBtn').disabled=!undoStack.length;$('redoBtn').disabled=!redoStack.length;$('undoBtn').style.opacity=undoStack.length?1:.45;$('redoBtn').style.opacity=redoStack.length?1:.45}
+function syncControls(){$('venueWidth').value=room.w;$('venueDepth').value=room.d;$('venueHeight').value=room.h;$('venueName').value=room.venue||'';$('showWalls').checked=room.walls;$('showRoof').checked=room.roof;$('showStage').checked=room.stage;$('showTruss').checked=room.truss;$('showCrowd').checked=room.crowd;$('crowdCount').value=room.guests;$('crowdLabel').textContent=room.guests;document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',b.dataset.preset===room.preset));}
+function duplicateEquipment(id){const d=equipment.find(e=>e.id===id);if(!d)return;saveHistory();const copy={...d,id:'eq-'+nextId++,x:THREE.MathUtils.clamp(d.x+1,-room.w/2,room.w/2),z:THREE.MathUtils.clamp(d.z+1,-room.d/2,room.d/2),object:null,labelObject:null};equipment.push(copy);makeEquipment(copy);selectEquipment(copy.id);updateStats();updateAcousticMap();toast('Equipment duplicated')}
+function deleteEquipment(id){const d=equipment.find(e=>e.id===id);if(!d)return;saveHistory();equipment=equipment.filter(e=>e.id!==id);if(d.object){equipmentRoot.remove(d.object);disposeTree(d.object)}selectEquipment(null);updateStats();updateAcousticMap();toast('Equipment removed')}
+function replaceEquipment(id,type){const d=equipment.find(e=>e.id===id);if(!d)return;saveHistory();const old=d.object;Object.assign(d,{type,label:fixtureFor(type).name,object:null,labelObject:null});if(old){equipmentRoot.remove(old);disposeTree(old)}makeEquipment(d);selectEquipment(id);updateStats();updateAcousticMap();toast(`Replaced with ${d.label}`)}
+function clearAllEquipment(){
+ const count=equipment.length;
+ if(!count){toast('The venue is already clear');return}
+ // Record the full equipment model first, so Undo restores every fixture and its properties.
+ saveHistory();
+ equipment=[];
+ selectedId=null;
+ placingType=null;
+ controls.enabled=true;
+ $('contextMenu').classList.remove('show');
+ clearRoot(equipmentRoot);
+ if(selectionBox){scene.remove(selectionBox);selectionBox.geometry?.dispose();selectionBox.material?.dispose();selectionBox=null}
+ $('floatingInspector').classList.remove('show');
+ renderInspector();
+ $('selectionChip').textContent='SELECTED: NONE';
+ $('selectionChip').classList.remove('show');
+ renderEquipmentLibrary();
+ updateStats();
+ updateAcousticMap();
+ updateHistoryButtons();
+ toast(`${count} equipment items removed · Click Undo to restore`);
+}
+function showContextMenu(x,y,d){const menu=$('contextMenu');menu.innerHTML='';const head=document.createElement('div');head.className='ctx-head';head.textContent=d?d.label:'Venue actions';menu.appendChild(head);const add=(label,fn,cls='')=>{const b=document.createElement('button');b.className='ctx-item '+cls;b.textContent=label;b.onclick=()=>{menu.classList.remove('show');fn()};menu.appendChild(b)};if(d){add('⚙  Edit properties',()=>{selectEquipment(d.id);$('floatingInspector').classList.add('show')});add('✎  Rename equipment',()=>{const name=prompt('Equipment label:',d.label);if(name?.trim()){saveHistory();d.label=name.trim();rebuildOneFixture(d);renderInspector();updateStats()}});add('＋  Duplicate',()=>duplicateEquipment(d.id));const sep=document.createElement('div');sep.className='ctx-sep';menu.appendChild(sep);const replace=document.createElement('div');replace.className='ctx-head';replace.textContent='REPLACE WITH';menu.appendChild(replace);catalog.forEach(c=>add(`${c.icon}  ${c.name}`,()=>replaceEquipment(d.id,c.type)));add('Delete equipment',()=>deleteEquipment(d.id),'danger')}else{add('Fit venue in view',fitCamera);add('Clear equipment',clearAllEquipment)}menu.classList.add('show');const r=menu.getBoundingClientRect();menu.style.left=Math.max(8,Math.min(x,innerWidth-r.width-8))+'px';menu.style.top=Math.max(8,Math.min(y,innerHeight-r.height-8))+'px'}
+document.addEventListener('pointerdown',e=>{if($('contextMenu').contains(e.target))return;if(e.target===canvas&&e.button===2)return;$('contextMenu').classList.remove('show')});document.addEventListener('keydown',e=>{if(e.key==='Escape'){placingType=null;controls.enabled=true;renderEquipmentLibrary();$('contextMenu').classList.remove('show');selectEquipment(null)}if((e.key==='Delete'||e.key==='Backspace')&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)&&selectedId)deleteEquipment(selectedId);if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();redo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='d'&&selectedId){e.preventDefault();duplicateEquipment(selectedId)}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key==='Backspace'){e.preventDefault();clearAllEquipment()}});
+
+// Mouse controls: left-drag empty space = orbit; Ctrl+wheel = zoom;
+// click = select/place; Shift+drag a fixture = move; right-click = context menu.
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{if(e.button===0&&e.shiftKey&&findEquipmentHit(e))controls.enabled=false;},true);
+canvas.addEventListener('pointerdown',e=>{
+ if(e.button===2){e.preventDefault();e.stopPropagation();if(placingType){placingType=null;controls.enabled=true;renderEquipmentLibrary()}const d=findEquipmentHit(e);if(d){selectEquipment(d.id);showContextMenu(e.clientX,e.clientY,d)}else showContextMenu(e.clientX,e.clientY,null);return}
+ if(e.button!==0)return;
+ if(placingType){const p=floorPointFromEvent(e);if(p){addEquipment(placingType,p);placingType=null;controls.enabled=true;renderEquipmentLibrary()}return}
+ const hit=findEquipmentHit(e);
+ if(hit){selectEquipment(hit.id);if(e.shiftKey){const p=floorPointFromEvent(e);if(p){dragState={id:hit.id,startX:p.x,startZ:p.z,objX:hit.x,objZ:hit.z,moved:false};controls.enabled=false;canvas.setPointerCapture(e.pointerId)}}return}
+ selectEquipment(null);
+});
+canvas.addEventListener('pointermove',e=>{if(!dragState)return;const p=floorPointFromEvent(e);if(!p)return;const d=equipment.find(x=>x.id===dragState.id);if(!d)return;const dx=p.x-dragState.startX,dz=p.z-dragState.startZ;if(Math.abs(dx)+Math.abs(dz)>.025)dragState.moved=true;d.x=THREE.MathUtils.clamp(dragState.objX+dx,-room.w/2+.35,room.w/2-.35);d.z=THREE.MathUtils.clamp(dragState.objZ+dz,-room.d/2+.35,room.d/2-.35);if(d.object)d.object.position.set(d.x,d.y,d.z);if(selectionBox)selectionBox.update()});
+function finishDrag(){if(!dragState)return;const d=equipment.find(x=>x.id===dragState.id);const moved=dragState.moved;dragState=null;controls.enabled=true;if(moved){if(d){rebuildOneFixture(d);renderInspector();updateAcousticMap()}toast('Equipment repositioned')}}canvas.addEventListener('pointerup',finishDrag);canvas.addEventListener('pointercancel',finishDrag);
+canvas.addEventListener('wheel',e=>{e.preventDefault();if(!e.ctrlKey)return;const factor=Math.exp(THREE.MathUtils.clamp(e.deltaY*.001,-1,1));const offset=camera.position.clone().sub(controls.target).multiplyScalar(factor);const distance=THREE.MathUtils.clamp(offset.length(),controls.minDistance,controls.maxDistance);offset.setLength(distance);camera.position.copy(controls.target).add(offset);controls.update();},{passive:false});
+
+// UI events
+$('closeInspector').onclick=()=>$('floatingInspector').classList.remove('show');
+$('equipmentSearch').oninput=renderEquipmentLibrary;document.querySelectorAll('.cat-tab').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('.cat-tab').forEach(x=>x.classList.toggle('active',x===b));renderEquipmentLibrary()});document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));document.querySelectorAll('[data-camera]').forEach(b=>b.onclick=()=>cameraPreset(b.dataset.camera));$('fitBtn').onclick=fitCamera;
+document.querySelectorAll('.preset').forEach(b=>b.onclick=()=>{const p=b.dataset.preset;room={...room,...presets[p],preset:p};syncControls();buildRoom();fitCamera();saveHistory();toast('Venue preset applied')});
+$('applyVenue').onclick=()=>{saveHistory();room.w=THREE.MathUtils.clamp(+$('venueWidth').value||24,6,100);room.d=THREE.MathUtils.clamp(+$('venueDepth').value||18,6,100);room.h=THREE.MathUtils.clamp(+$('venueHeight').value||6,2,30);room.venue=$('venueName').value;syncControls();buildRoom();fitCamera();toast('Venue dimensions updated')};
+[['showWalls','walls'],['showRoof','roof'],['showStage','stage'],['showTruss','truss'],['showCrowd','crowd']].forEach(([id,key])=>$(id).onchange=()=>{saveHistory();room[key]=$(id).checked;buildRoom()});$('crowdCount').oninput=()=>{$('crowdLabel').textContent=$('crowdCount').value};$('crowdCount').onchange=()=>{saveHistory();room.guests=+$('crowdCount').value;buildRoom();updateStats()};
+$('showBeams').onchange=()=>{saveHistory();showBeams=$('showBeams').checked;rebuildEquipment()};$('showIllum').onchange=()=>{saveHistory();showIllum=$('showIllum').checked;rebuildEquipment()};$('showCoverage').onchange=()=>{saveHistory();showCoverage=$('showCoverage').checked;rebuildEquipment()};$('showLabels').onchange=()=>{saveHistory();showLabels=$('showLabels').checked;rebuildEquipment()};$('showGrid').onchange=()=>{saveHistory();showGrid=$('showGrid').checked;buildRoom()};$('showAcoustic').onchange=()=>{showAcoustic=$('showAcoustic').checked;updateAcousticMap();$('soundLegend').classList.toggle('show',mode==='audio'&&showAcoustic)};$('frequency').onchange=updateAcousticMap;
+$('undoBtn').onclick=undo;$('redoBtn').onclick=redo;
+$('clearEquipmentBtn').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();clearAllEquipment()});
+$('saveBtn').onclick=()=>{localStorage.setItem('smartevents-studio',getState());$('saveState').textContent='SAVED JUST NOW';toast('Project saved in this browser')};$('loadBtn').onclick=()=>$('fileInput').click();$('fileInput').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{restoreState(await f.text());undoStack=[];redoStack=[];updateHistoryButtons();toast('Project loaded')}catch(err){alert('Could not open project JSON: '+err.message)}e.target.value=''};
+$('exportBtn').onclick=()=>{const data=getState();const blob=new Blob([JSON.stringify(JSON.parse(data),null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='smartevents-production-plan.json';a.click();URL.revokeObjectURL(url);toast('Project JSON exported')};
+function makeBrief(){const counts={};equipment.forEach(e=>counts[e.label]=(counts[e.label]||0)+1);return `SMARTEVENTS — EVENT PRODUCTION PLAN\nProject: ${$('projectName').value}\nVenue / Client: ${room.venue||'To be confirmed'}\nVenue dimensions: ${room.w} m × ${room.d} m × ${room.h} m high\nVenue floor area: ${Math.round(room.w*room.d)} m²\nExpected audience: ${room.guests}\n\nEQUIPMENT SCHEDULE\n${Object.entries(counts).map(([name,count])=>`${count} × ${name}`).join('\n')||'No equipment placed'}\n\nPRELIMINARY PLANNING VISUALIZATION\nLighting and acoustic displays are illustrative approximations. Confirm actual fixture photometrics, SPL, rigging, electrical distribution, laser safety, structural suitability and venue conditions with qualified personnel and manufacturer data before installation.`}
+$('briefBtn').onclick=()=>{$('briefText').value=makeBrief();$('briefModal').classList.add('show')};$('closeBrief').onclick=()=>$('briefModal').classList.remove('show');$('copyBrief').onclick=async()=>{try{await navigator.clipboard.writeText($('briefText').value);toast('Client brief copied');$('briefModal').classList.remove('show')}catch{ $('briefText').select();document.execCommand('copy');toast('Client brief copied')}};$('briefModal').onclick=e=>{if(e.target===$('briefModal'))$('briefModal').classList.remove('show')};
+
+function animate(){requestAnimationFrame(animate);controls.update();if(selectionBox)selectionBox.update();renderer.render(scene,camera)}
+renderEquipmentLibrary();syncControls();buildRoom();buildEquipment();function buildEquipment(){equipment=[];nextId=1;const demo=[['linearray',-9,0,-6],['linearray',9,0,-6],['sub',-3,0,-7],['sub',3,0,-7],['moving',-7,5.35,-5],['moving',-2.5,5.35,-5],['moving',2.5,5.35,-5],['moving',7,5.35,-5],['wash',0,5.35,-5],['speaker',-10,0,3],['speaker',10,0,3],['dj',0,.1,-6]];for(const [type,x,y,z] of demo){const c=fixtureFor(type);const d={id:'eq-'+nextId++,type,label:c.name,x,y,z,rotation:0,aimX:0,aimZ:room.d*.18,beamAngle:type==='wash'?55:28,intensity:24};equipment.push(d);makeEquipment(d)}updateStats();updateAcousticMap();}
+setMode('lighting');fitCamera();onResize();animate();updateHistoryButtons();
+</script>
+</body>
+</html>
